@@ -1,0 +1,6 @@
+http://data.aodn.org.au/IMOS/SRS/Surface-Waves/Wave-Wind-Altimetry-DM00/JASON-1/040S_140E/IMOS_SRS-Surface-Waves_MW_JASON-1_FV02_035S-154E-DM00.nc
+http://data.aodn.org.au/IMOS/SRS/Surface-Waves/Wave-Wind-Altimetry-DM00/TOPEX/040S_140E/IMOS_SRS-Surface-Waves_MW_TOPEX_FV02_035S-152E-DM00.nc
+http://data.aodn.org.au/IMOS/SRS/Surface-Waves/Wave-Wind-Altimetry-DM00/HY-2/040S_140E/IMOS_SRS-Surface-Waves_MW_HY-2_FV02_036S-154E-DM00.nc
+http://data.aodn.org.au/IMOS/SRS/Surface-Waves/Wave-Wind-Altimetry-DM00/JASON-2/040S_140E/IMOS_SRS-Surface-Waves_MW_JASON-2_FV02_036S-154E-DM00.nc
+http://data.aodn.org.au/IMOS/SRS/Surface-Waves/Wave-Wind-Altimetry-DM00/ENVISAT/040S_140E/IMOS_SRS-Surface-Waves_MW_ENVISAT_FV02_035S-154E-DM00.nc
+http://data.aodn.org.au/IMOS/SRS/Surface-Waves/Wave-Wind-Altimetry-DM00/JASON-2/040S_140E/IMOS_SRS-Surface-Waves_MW_JASON-2_FV02_035S-154E-DM00.nc
