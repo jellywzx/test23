@@ -49,3 +49,6 @@ a=swh_KU.sel(TIME='2010-8').to_series()
 filePath='D:/wzx/data/test'
 for dirpath, dirnames, filenames in os.walk(filePath):
     data = xr.open_dataset(filenames)
+for dirpath, dirnames, filenames in os.walk(filePath):
+        data = xr.open_dataset(filenames)
+
