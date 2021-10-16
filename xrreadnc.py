@@ -50,19 +50,3 @@ era5 = xr.open_dataset('G:/SYS/data/adaptor.mars.internal-1633085155.6619427-469
 # xrers1=xr.open_dataset('G:/SYS/data/test/IMOS_SRS-Surface-Waves_MW_CRYOSAT-2_FV02_000N-000E-DM00.nc')
 # xrers2=xr.open_dataset('G:/SYS/data/test/IMOS_SRS-Surface-Waves_MW_CRYOSAT-2_FV02_000N-001E-DM00.nc')
 
-times=[]
-latitudes=[]
-longitudes=[]
-
-
-times_after=[]
-latitudes_after=[]
-longitudes_after=[]
-
-netCDF4.num2date(time,)
-
-da = xr.DataArray(
-   ...:     np.sin(0.3 * np.arange(12).reshape(4, 3)),
-   ...:     [("time", np.arange(4)), ("space", [0.1, 0.2, 0.3])],
-   ...: )
-
