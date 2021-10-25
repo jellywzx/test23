@@ -6,28 +6,119 @@ import numpy as np
 import pandas as pd
 import os
 
-
-# # fig, ax = plt.subplots()
-cryosat2 = xr.open_dataset('G:\SYS\data\CRYOSAT-2\IMOS_SRS-Surface-Waves_MW_CRYOSAT-2_FV02_065N-180E-DM00.nc')
-# # ers1 = xr.open_dataset('D:/wzx/data/ERS-1/IMOS_SRS-Surface-Waves_MW_ERS-1_FV02_000N-000E-DM00.nc')
-# # jason1 = xr.open_dataset('D:/wzx/data/JASON-1/IMOS_SRS-Surface-Waves_MW_JASON-1_FV02_000N-000E-DM00.nc')
-# # saral = xr.open_dataset('D:/wzx/data/SARAL/IMOS_SRS-Surface-Waves_MW_SARAL_FV02_000N-000E-DM00.nc')
-lon = cryosat2['LONGITUDE']
-lat = cryosat2['LATITUDE']
-# Londf=lon.to_dataframe()
-# Latdf=lat.to_dataframe()
-time = cryosat2['TIME']
+cryosat2 = xr.open_dataset('D:/wzx/data/CRYOSAT-2/IMOS_SRS-Surface-Waves_MW_CRYOSAT-2_FV02_065N-180E-DM00.nc')
 swh_KU = cryosat2['SWH_KU_CAL']
-swhdf = swh_KU.to_dataframe()
-pd.set_option("display.precision",3)
+swh_KU[swh_KU>30] = np.nan
+swhKU = swh_KU.dropna(dim='TIME')
+# # plot number of waves
+# swhKUdf = swhKU.to_dataframe()
+# a = swhKUdf['SWH_KU_CAL'].value_counts()
+# plt.bar(a.index,a.values)
+# plt.ylabel('number of waves')
+# plt.xlabel('Hs(m)')
+# plot line
+swh_KU.plot(color='r',linestyle='--',marker='o')
+# plt.title('CRYOSAT-2 swh_KU')
 
+
+# ers1 = xr.open_dataset('D:/wzx/data/ERS-1/IMOS_SRS-Surface-Waves_MW_ERS-1_FV02_065N-180E-DM00.nc')
+# swh_KU_ers1 = ers1['SWH_KU_CAL']
+# # if contain Nan data
+# swh_KU_ers1[swh_KU_ers1>30] = np.nan
+# swh_KU_ers1 = swh_KU_ers1.dropna(dim='TIME')
+# # if data is OK
+# swh_KU_ers1.plot(color='b',linestyle='--',marker='o')
+# # plt.title('ERS-1 swh_KU')
+
+# ers2 = xr.open_dataset('D:/wzx/data/ERS-2/IMOS_SRS-Surface-Waves_MW_ERS-2_FV02_065N-180E-DM00.nc')
+# swh_KU = ers2['SWH_KU_CAL']
+# swh_KU.plot(color='r',linestyle='--',marker='o')
+# plt.title('ERS-2 swh_KU')
+
+hy2 = xr.open_dataset('D:/wzx/data/HY-2/IMOS_SRS-Surface-Waves_MW_HY-2_FV02_065N-180E-DM00.nc')
+swh_KU_hy2 = hy2['SWH_KU_CAL']
+swh_KU_hy2[swh_KU_hy2>30] = np.nan
+swh_KU_hy2 = swh_KU_hy2.dropna(dim='TIME')
+swh_KU_hy2.plot(color='b',linestyle='--',marker='o')
+# plt.title('HY-2 swh_KU')
+
+# # 需要drop极低值
+# jason1 = xr.open_dataset('D:/wzx/data/JASON-1/IMOS_SRS-Surface-Waves_MW_JASON-1_FV02_065N-180E-DM00.nc')
+# swh_KU = jason1['SWH_KU_CAL']
+# # swh_KU[swh_KU>30] = np.nan
+# # swhKU = swh_KU.dropna(dim='TIME')
+# swh_KU.plot(color='r',linestyle='--',marker='o')
+# plt.title('JASON-1 swh_KU')
+
+# # 没有180E的数据，只有181E的数据
+# # 需要drop极低值
+# jason2 = xr.open_dataset('D:/wzx/data/JASON-2/IMOS_SRS-Surface-Waves_MW_JASON-2_FV02_065N-181E-DM00.nc')
+# swh_KU = jason1['SWH_KU_CAL']
+# # swh_KU[swh_KU>30] = np.nan
+# # swhKU = swh_KU.dropna(dim='TIME')
+# swh_KU.plot(color='r',linestyle='--',marker='o')
+# plt.title('JASON-2 swh_KU')
+
+#这个经纬度是65N,181E
+# jason3 = xr.open_dataset('D:/wzx/data/JASON-3/IMOS_SRS-Surface-Waves_MW_JASON-3_FV02_065N-181E-DM00.nc')
+# swh_KU_jason3 = jason3['SWH_KU_CAL']
+# # swh_KU[swh_KU>30] = np.nan
+# # swhKU = swh_KU.dropna(dim='TIME')
+# swh_KU_jason3.plot(color='g',linestyle='--',marker='o')
+# # plt.title('JASON-3 swh_KU')
+
+# # 这个SARAL数据没有Ku波段的有效波高
+# saral = xr.open_dataset('D:/wzx/data/SARAL/IMOS_SRS-Surface-Waves_MW_SARAL_FV02_065N-180E-DM00.nc')
+# swh_KU = saral['SWH_KU_CAL']
+# # swh_KU[swh_KU>30] = np.nan
+# # swhKU = swh_KU.dropna(dim='TIME')
+# swh_KU.plot(color='r',linestyle='--',marker='o')
+# plt.title('SARAL swh_KU')
+
+s3 = xr.open_dataset('D:/wzx/data/SENTINEL-3A/IMOS_SRS-Surface-Waves_MW_SENTINEL-3A_FV02_065N-180E-DM00.nc')
+swh_KU_s3 = s3['SWH_KU_CAL']
+# swh_KU[swh_KU>30] = np.nan
+# swhKU = swh_KU.dropna(dim='TIME')
+swh_KU_s3.plot(color='y',linestyle='--',marker='o')
+# plt.title('SENTINEL-3A swh_KU')
+
+# topex = xr.open_dataset('D:/wzx/data/TOPEX/IMOS_SRS-Surface-Waves_MW_TOPEX_FV02_065N-180E-DM00.nc')
+# swh_KU_topex = topex['SWH_KU_CAL']
+# # swh_KU[swh_KU>30] = np.nan
+# # swhKU = swh_KU.dropna(dim='TIME')
+# swh_KU_topex.plot(color='k',linestyle='--',marker='o')
+# # plt.title('TOPEX swh_KU')
+
+
+
+
+
+
+
+swhKUdf = swhKU.to_dataframe()
+a = swhKUdf['SWH_KU_CAL'].value_counts()
 # plot number of waves
-a = swhdf['SWH_KU_CAL'].value_counts()
-#drop Nan data in dataframe according to the value
-a = a[a.values != 967]
 plt.bar(a.index,a.values)
 plt.ylabel('number of waves')
 plt.xlabel('Hs(m)')
+
+
+
+
+
+
+
+
+
+
+# swh_rsp = swh_KU.resample(TIME='1D',skipna=True).interpolate('linear')
+
+
+
+
+#drop Nan data in dataframe according to the value
+# a = a[a.values != 967]
+
 
 # plot pdf
 a=a.to_frame()
