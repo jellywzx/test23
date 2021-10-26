@@ -8,17 +8,58 @@ import os
 
 cryosat2 = xr.open_dataset('D:/wzx/data/CRYOSAT-2/IMOS_SRS-Surface-Waves_MW_CRYOSAT-2_FV02_065N-180E-DM00.nc')
 swh_KU = cryosat2['SWH_KU_CAL']
+    # .sel(TIME=slice('2016','2018'))
 swh_KU[swh_KU>30] = np.nan
 swhKU = swh_KU.dropna(dim='TIME')
-# # plot number of waves
-# swhKUdf = swhKU.to_dataframe()
-# a = swhKUdf['SWH_KU_CAL'].value_counts()
-# plt.bar(a.index,a.values)
-# plt.ylabel('number of waves')
-# plt.xlabel('Hs(m)')
-# plot line
-swh_KU.plot(color='r',linestyle='--',marker='o')
-# plt.title('CRYOSAT-2 swh_KU')
+plt.figure()
+swh_KU.plot(color='r', linestyle='--', marker='o', label='CRYOSAT2')
+
+hy2 = xr.open_dataset('D:/wzx/data/HY-2/IMOS_SRS-Surface-Waves_MW_HY-2_FV02_065N-180E-DM00.nc')
+swh_KU_hy2 = hy2['SWH_KU_CAL'].sel(TIME=slice('2016','2018'))
+swh_KU_hy2[swh_KU_hy2>30] = np.nan
+swh_KU_hy2 = swh_KU_hy2.dropna(dim='TIME')
+swh_KU_hy2.plot(color='b',linestyle='--',marker='*',label='HY2')
+
+s3 = xr.open_dataset('D:/wzx/data/SENTINEL-3A/IMOS_SRS-Surface-Waves_MW_SENTINEL-3A_FV02_065N-180E-DM00.nc')
+swh_KU_s3 = s3['SWH_KU_CAL'].sel(TIME=slice('2016','2018'))
+swh_KU_s3.plot(color='g',linestyle='--',marker='x',label='SENTINEL-3A')
+plt.legend()
+plt.title('65N 180E Calibrated significant wave height')
+
+# 0N 0E
+cryosat2 = xr.open_dataset('D:/wzx/data/CRYOSAT-2/IMOS_SRS-Surface-Waves_MW_CRYOSAT-2_FV02_000N-000E-DM00.nc')
+swh_KU = cryosat2['SWH_KU_CAL'].sel(TIME=slice('2016','2018'))
+swh_KU[swh_KU>30] = np.nan
+swhKU = swh_KU.dropna(dim='TIME')
+plt.figure()
+swh_KU.plot(color='r', linestyle='--', marker='o', label='CRYOSAT2')
+
+hy2 = xr.open_dataset('D:/wzx/data/HY-2/IMOS_SRS-Surface-Waves_MW_HY-2_FV02_000N-000E-DM00.nc')
+swh_KU_hy2 = hy2['SWH_KU_CAL'].sel(TIME=slice('2016','2018'))
+swh_KU_hy2[swh_KU_hy2>30] = np.nan
+swh_KU_hy2 = swh_KU_hy2.dropna(dim='TIME')
+swh_KU_hy2.plot(color='b',linestyle='--',marker='*',label='HY2')
+
+s3 = xr.open_dataset('D:/wzx/data/SENTINEL-3A/IMOS_SRS-Surface-Waves_MW_SENTINEL-3A_FV02_000N-000E-DM00.nc')
+swh_KU_s3 = s3['SWH_KU_CAL'].sel(TIME=slice('2016','2018'))
+swh_KU_s3.plot(color='g',linestyle='--',marker='x',label='SENTINEL-3A')
+plt.legend()
+plt.title('0N 0E Calibrated significant wave height')
+
+
+
+
+
+
+
+
+# plot number of waves
+swhKUdf = swhKU.to_dataframe()
+a = swhKUdf['SWH_KU_CAL'].value_counts()
+plt.bar(a.index,a.values)
+plt.ylabel('number of waves')
+plt.xlabel('Hs(m)')
+plt.title('65N 180E CRYOSAT-2 swh_KU')
 
 
 # ers1 = xr.open_dataset('D:/wzx/data/ERS-1/IMOS_SRS-Surface-Waves_MW_ERS-1_FV02_065N-180E-DM00.nc')
@@ -39,7 +80,7 @@ hy2 = xr.open_dataset('D:/wzx/data/HY-2/IMOS_SRS-Surface-Waves_MW_HY-2_FV02_065N
 swh_KU_hy2 = hy2['SWH_KU_CAL']
 swh_KU_hy2[swh_KU_hy2>30] = np.nan
 swh_KU_hy2 = swh_KU_hy2.dropna(dim='TIME')
-swh_KU_hy2.plot(color='b',linestyle='--',marker='o')
+swh_KU_hy2.plot(color='b',linestyle='--',marker='*',label='HY2')
 # plt.title('HY-2 swh_KU')
 
 # # 需要drop极低值
@@ -79,15 +120,17 @@ s3 = xr.open_dataset('D:/wzx/data/SENTINEL-3A/IMOS_SRS-Surface-Waves_MW_SENTINEL
 swh_KU_s3 = s3['SWH_KU_CAL']
 # swh_KU[swh_KU>30] = np.nan
 # swhKU = swh_KU.dropna(dim='TIME')
-swh_KU_s3.plot(color='y',linestyle='--',marker='o')
+swh_KU_s3.plot(color='g',linestyle='--',marker='x',label='SENTINEL-3A')
 # plt.title('SENTINEL-3A swh_KU')
+plt.legend()
+plt.title('65N 180E Calibrated significant wave height')
 
-# topex = xr.open_dataset('D:/wzx/data/TOPEX/IMOS_SRS-Surface-Waves_MW_TOPEX_FV02_065N-180E-DM00.nc')
-# swh_KU_topex = topex['SWH_KU_CAL']
-# # swh_KU[swh_KU>30] = np.nan
-# # swhKU = swh_KU.dropna(dim='TIME')
-# swh_KU_topex.plot(color='k',linestyle='--',marker='o')
-# # plt.title('TOPEX swh_KU')
+topex = xr.open_dataset('D:/wzx/data/TOPEX/IMOS_SRS-Surface-Waves_MW_TOPEX_FV02_065N-180E-DM00.nc')
+swh_KU_topex = topex['SWH_KU_CAL']
+# swh_KU[swh_KU>30] = np.nan
+# swhKU = swh_KU.dropna(dim='TIME')
+swh_KU_topex.plot(color='k',linestyle='--',marker='o')
+# plt.title('TOPEX swh_KU')
 
 
 
